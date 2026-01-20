@@ -14,7 +14,6 @@ A backend-driven system to manage **NGO user registrations** and **donations** s
 - [API Endpoints](#api-endpoints)  
 - [Testing Payments](#testing-payments)  
 - [User Roles & Permissions](#user-roles--permissions)  
-- [License](#license)  
 
 ---
 
@@ -88,7 +87,7 @@ CREATE TABLE donations (
 );
 ```
 
-Setup Instructions
+## Setup Instructions
 
 Clone the repository
 ```
@@ -116,7 +115,8 @@ Create users and donations tables as above
 Start the server
 
 ```npm run dev```
-API Endpoints
+
+## API Endpoints
 | Method | Endpoint           | Description       |
 | ------ | ------------------ | ----------------- |
 | POST   | /api/auth/register | User registration |
@@ -140,11 +140,12 @@ Admin
 | PATCH  | /api/admin/users/:email/revoke-admin | Revoke admin (Superadmin only) |
 | PATCH  | /api/admin/users/:email/permissions  | Update admin permissions       |
 
-User Roles & Permissions
+## User Roles & Permissions
 Roles
 Superadmin: Full control, can grant/revoke admin roles
 Admin: Controlled access via permissions
 User: Default, can register and donate
 
-Testing Payments
+## Testing Payments
 Dummy Credentials are used for Demo version.
+
