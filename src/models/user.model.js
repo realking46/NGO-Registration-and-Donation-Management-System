@@ -1,26 +1,54 @@
+// models/user.model.js
 import pool from "../config/db.js";
 
 export const createUser = async (name, email, passwordHash) => {
   const query = `
-    INSERT INTO users (name, email, password_hash)
-    VALUES ($1, $2, $3)
-    RETURNING id, name, email, role
+    INSERT INTO users (name, email, password, role, is_admin, permissions , created_at)
+    VALUES ($1, $2, $3, 'USER', false, '{}', CURRENT_TIMESTAMP)
+    RETURNING id, name, email, role, is_admin, permissions, created_at
   `;
-  const values = [name, email, passwordHash];
-  const { rows } = await pool.query(query, values);
+  const { rows } = await pool.query(query, [name, email, passwordHash]);
   return rows[0];
 };
 
 export const getUserById = async (id) => {
-  const result = await pool.query(
-    "SELECT id, name, email FROM users WHERE id = $1",
-    [id]
-  );
-  return result.rows[0];
+  const query = `
+    SELECT id, name, email, role, is_admin, permissions , created_at
+    FROM users WHERE id = $1
+  `;
+  const { rows } = await pool.query(query, [id]);
+  return rows[0];
 };
 
 export const findUserByEmail = async (email) => {
-  const query = `SELECT * FROM users WHERE email = $1`;
+  const query = `
+    SELECT id, name, email, password, role, is_admin, permissions , created_at
+    FROM users WHERE email = $1
+  `;
   const { rows } = await pool.query(query, [email]);
+  return rows[0];
+};
+
+export const makeUserAdmin = async (email) => {
+  const { rows } = await pool.query(
+    `UPDATE users SET role='ADMIN' WHERE email=$1 RETURNING id, email, role`,
+    [email]
+  );
+  return rows[0];
+};
+
+export const revokeAdmin = async (email) => {
+  const { rows } = await pool.query(
+    `UPDATE users SET role='USER', permissions='{}' WHERE email=$1 RETURNING id,email, role`,
+    [email]
+  );
+  return rows[0];
+};
+
+export const updateUserPermissions = async (email, permissions) => {
+  const { rows } = await pool.query(
+    `UPDATE users SET permissions=$1 WHERE email=$2 RETURNING id, permissions`,
+    [permissions, email]
+  );
   return rows[0];
 };
