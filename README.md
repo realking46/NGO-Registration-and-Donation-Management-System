@@ -113,21 +113,21 @@ Start the server
 
 Donations
 
-| Method | Endpoint                   | Description             |
-| ------ | -------------------------- | ----------------------- |
-| POST   | /api/donation/initiate     | Initiate donation       |
-| POST   | /api/donation/mock-payment | Simulate payment status |
-| GET    | /api/donation/my           | Get user donations      |
+| Method | Endpoint               | Description             |
+| ------ | ---------------------- | ----------------------- |
+| POST   | /donation/initiate     | Initiate donation       |
+| POST   | /donation/mock-payment | Simulate payment status |
+| GET    | /donation/my           | Get user donations      |
 
 Admin
-| Method | Endpoint                             | Description                    |
-| ------ | ------------------------------------ | ------------------------------ |
-| GET    | /api/admin/dashboard                 | Dashboard stats                |
-| GET    | /api/admin/users                     | List all users                 |
-| GET    | /api/admin/donations                 | List all donations             |
-| PATCH  | /api/admin/users/:email/make-admin   | Grant admin (Superadmin only)  |
-| PATCH  | /api/admin/users/:email/revoke-admin | Revoke admin (Superadmin only) |
-| PATCH  | /api/admin/users/:email/permissions  | Update admin permissions       |
+| Method | Endpoint                         | Description                    |
+| ------ | -------------------------------- | ------------------------------ |
+| GET    | /admin/dashboard                 | Dashboard stats                |
+| GET    | /admin/users                     | List all users                 |
+| GET    | /admin/donations                 | List all donations             |
+| PATCH  | /admin/users/make-admin          | Grant admin (Superadmin only)  |
+| PATCH  | /admin/users/revoke-admin        | Revoke admin (Superadmin only) |
+| PATCH  | /admin/users/:email/permissions  | Update admin permissions       |
 
 ## User Roles & Permissions
 Roles
@@ -137,5 +137,6 @@ User: Default, can register and donate
 
 ## Testing Payments
 Dummy Credentials are used for Demo version.
+
 
 
