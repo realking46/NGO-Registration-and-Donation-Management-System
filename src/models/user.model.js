@@ -31,7 +31,7 @@ export const findUserByEmail = async (email) => {
 
 export const makeUserAdmin = async (email) => {
   const { rows } = await pool.query(
-    `UPDATE users SET role='ADMIN' WHERE email=$1 RETURNING id, email, role`,
+    `UPDATE users SET role='ADMIN', is_admin=true WHERE email=$1 RETURNING id, email, role`,
     [email]
   );
   return rows[0];
