@@ -42,16 +42,13 @@ export const getDonationById = async (id) => {
 export const updateDonationByOrderId = async (
   orderId,
   status,
-  transactionId
 ) => {
   const result = await pool.query(
     `UPDATE donations
-     SET status = $1,
-         transaction_id = $2,
-         updated_at = NOW()
-     WHERE order_id = $3
+     SET status = $1
+     WHERE order_id = $2
      RETURNING *`,
-    [status, transactionId, orderId]
+    [status, orderId]
   );
   return result.rows[0];
 };
