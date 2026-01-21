@@ -30,10 +30,10 @@ export const payhereNotify = async (req, res) => {
     if (local_md5sig !== md5sig) {
       return res.sendStatus(400);
     }
-    if (status_code == "2") {
-      await updateDonationByOrderId(order_id, "SUCCESS", payment_id);
+    if (status_code == 2) {
+      await updateDonationByOrderId(order_id, "SUCCESS");
     } else {
-      await updateDonationByOrderId(order_id, "FAILED", payment_id);
+      await updateDonationByOrderId(order_id, "FAILED");
     }
 
     res.sendStatus(200);
