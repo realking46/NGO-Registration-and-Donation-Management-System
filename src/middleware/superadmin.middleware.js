@@ -1,4 +1,3 @@
-import { getUserById } from "../models/user.model.js";
 
 export const requireSuperAdmin = (req, res, next) => {
   if (req.user.email !== process.env.SUPERADMIN_EMAIL) {
