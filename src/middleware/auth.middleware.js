@@ -12,7 +12,6 @@ export const authenticate = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 🔴 THIS LINE IS THE MOST IMPORTANT
     req.user = {
       userId: decoded.userId,
       email: decoded.email,
