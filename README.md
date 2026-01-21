@@ -40,7 +40,8 @@ A backend-driven system to manage **NGO user registrations** and **donations** s
 - **Backend:** Node.js, Express.js  
 - **Database:** PostgreSQL  
 - **Authentication:** JWT  
-- **Payment Gateway:** PayHere (Sandbox mode)  
+- **Payment Gateway:** PayHere (Sandbox mode)
+- **API Platform:** Postman 
 
 ---
 
@@ -137,6 +138,7 @@ User: Default, can register and donate
 
 ## Testing Payments
 Dummy Credentials are used for Demo version.
+
 
 
 
