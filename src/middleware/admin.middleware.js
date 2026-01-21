@@ -1,5 +1,5 @@
 export const authorizeAdmin = (req, res, next) => {
-  if (req.user.role !== "ADMIN") {
+  if (req.user.role !== "ADMIN" && req.user.role !== "SUPERADMIN") {
     return res.status(403).json({ message: "Admin access only" });
   }
   next();
