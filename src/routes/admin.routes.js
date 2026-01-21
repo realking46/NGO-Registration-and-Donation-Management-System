@@ -13,7 +13,6 @@ import {
 import {
   makeUserAdmin,
   revokeAdmin,
-  updateUserPermissions
 } from "../models/user.model.js";
 import { PERMISSIONS } from "../config/permissions.js";
 
@@ -72,7 +71,6 @@ router.patch( "/users/make-admin",
     res.json({ message: "Admin granted", user });
   }
 );
-
 
 router.patch( "/users/revoke-admin",
   authenticate,
