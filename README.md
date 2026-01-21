@@ -95,7 +95,9 @@ git clone https://github.com/realking46/NGO-Registration-and-Donation-Management
 ```
 
 Install backend dependencies
-``` npm install ```
+``` 
+npm install
+```
 
 Create a .env file in the root:
 * .env has already been createed needing only slight changes.
@@ -104,7 +106,9 @@ Run database migrations (PostgreSQL)
 Create users and donations tables as above
 Start the server
 
-```npm run dev```
+```
+npm run dev
+```
 
 ## API Endpoints
 | Method | Endpoint       | Description       |
@@ -138,6 +142,7 @@ User: Default, can register and donate
 
 ## Testing Payments
 Dummy Credentials are used for Demo version.
+
 
 
 
