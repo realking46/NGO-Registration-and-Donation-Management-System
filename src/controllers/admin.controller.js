@@ -1,4 +1,5 @@
 import pool from "../config/db.js";
+import { updateUserPermissions } from "../models/user.model.js";
 
 export const getDashboardStats = async (req, res) => {
   try {
@@ -60,15 +61,11 @@ export const makeAdmin = async (req, res) => {
 };
 
 export const updatePermissions = async (req, res) => {
-  const { userId } = req.params;
+  const { email } = req.params;
   const { permissions } = req.body;
 
-  await pool.query(
-    "UPDATE users SET permissions = $1 WHERE id = $2",
-    [permissions, userId]
-  );
-
-  res.json({ message: "Permissions updated" });
+  const user = await updateUserPermissions(email, permissions);
+  res.json({ message: "Permissions updated", user });
 };
 
 export const exportDonations = async (req, res) => {
