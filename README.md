@@ -41,7 +41,6 @@ A backend-driven system to manage **NGO user registrations** and **donations** s
 - **Database:** PostgreSQL  
 - **Authentication:** JWT  
 - **Payment Gateway:** PayHere (Sandbox mode)  
-- **Frontend:** React.js (optional, for future extension)  
 
 ---
 
@@ -65,50 +64,40 @@ A backend-driven system to manage **NGO user registrations** and **donations** s
 ### Users Table
 
 ```sql
-CREATE TYPE user_role AS ENUM ('user', 'admin');
-
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
-  password_hash TEXT NOT NULL,
-  role user_role DEFAULT 'user',
+  password TEXT NOT NULL,
+  role TEXT CHECK (role IN ('USER', 'ADMIN', 'SUPERADMIN')) DEFAULT 'USER',
+  is_admin BOOLEAN DEFAULT false,
   permissions JSONB DEFAULT '{}',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE donations (
-  id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE,
-  amount NUMERIC NOT NULL,
-  status VARCHAR(10) DEFAULT 'pending', -- success, failed, pending
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    amount NUMERIC(10,2) NOT NULL,
+    message TEXT,
+    status VARCHAR(20) DEFAULT 'PENDING',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 ```
 
 ## Setup Instructions
 
 Clone the repository
 ```
-git clone <repo-url>
-cd ngo-donation-system
+git clone https://github.com/realking46/NGO-Registration-and-Donation-Management-System
 ```
 
 Install backend dependencies
 ``` npm install ```
 
 Create a .env file in the root:
-```
-PORT=5000
-DB_USER=postgres
-DB_PASSWORD=yourpassword
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=ngo_db
-JWT_SECRET=your_jwt_secret
-SUPERADMIN_EMAIL=superadmin@example.com
-```
+* .env has already been createed needing only slight changes.
 
 Run database migrations (PostgreSQL)
 Create users and donations tables as above
@@ -117,10 +106,10 @@ Start the server
 ```npm run dev```
 
 ## API Endpoints
-| Method | Endpoint           | Description       |
-| ------ | ------------------ | ----------------- |
-| POST   | /api/auth/register | User registration |
-| POST   | /api/auth/login    | User login        |
+| Method | Endpoint       | Description       |
+| ------ | -------------- | ----------------- |
+| POST   | /auth/register | User registration |
+| POST   | /auth/login    | User login        |
 
 Donations
 
@@ -148,4 +137,5 @@ User: Default, can register and donate
 
 ## Testing Payments
 Dummy Credentials are used for Demo version.
+
 
